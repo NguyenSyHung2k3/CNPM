@@ -33,13 +33,13 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <Circle fill="DODGERBLUE" layoutX="1002.0" layoutY="20.0" radius="13.0" stroke="WHITE" strokeType="INSIDE" />
+                        <Circle fx:id="top_profile" fill="DODGERBLUE" layoutX="1002.0" layoutY="20.0" radius="13.0" stroke="WHITE" strokeType="INSIDE" />
                         <Label layoutX="1030.0" layoutY="11.0" text="Active" />
                         <Circle fill="#1fff37" layoutX="1079.0" layoutY="20.0" radius="7.0" stroke="WHITE" strokeType="INSIDE" />
                         <Label layoutX="753.0" layoutY="11.0" text="Welcome," />
                         <Label layoutX="812.0" layoutY="11.0" prefHeight="18.0" prefWidth="155.0" text="Admin" />
-                        <Label alignment="CENTER_RIGHT" layoutX="537.0" layoutY="11.0" prefHeight="18.0" prefWidth="193.0" stylesheets="@../design/AdminDesign.css" text="MM:DD:YY" />
-                        <Label layoutX="240.0" layoutY="9.0" prefHeight="18.0" prefWidth="230.0" styleClass="header-l" stylesheets="@../design/AdminDesign.css" text="Dashboard Form">
+                        <Label fx:id="date_form" alignment="CENTER_RIGHT" layoutX="537.0" layoutY="11.0" prefHeight="18.0" prefWidth="193.0" stylesheets="@../design/AdminDesign.css" text="MM:DD:YY hh:mm:ss a" />
+                        <Label fx:id="current_form" layoutX="240.0" layoutY="9.0" prefHeight="18.0" prefWidth="230.0" styleClass="header-l" stylesheets="@../design/AdminDesign.css" text="Dashboard Form">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -54,6 +54,7 @@
                <left>
                   <AnchorPane prefHeight="560.0" prefWidth="230.0" styleClass="bg-color-l" stylesheets="@../design/AdminDesign.css" BorderPane.alignment="CENTER">
                      <children>
+                        <FontAwesomeIcon fill="#6293b1" glyphName="BUILDING" layoutX="76.0" layoutY="500.0" size="8em" wrappingWidth="75.42856979370117" />
                         <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="76.0" layoutY="83.0" size="6em" />
                         <Label layoutX="31.0" layoutY="104.0" text="MANAGEMENT" textFill="WHITE">
                            <font>
@@ -66,24 +67,24 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button layoutX="30.0" layoutY="188.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Main Menu" AnchorPane.bottomAnchor="328.0" AnchorPane.topAnchor="190.0">
+                        <Button fx:id="main_menu_btn" layoutX="30.0" layoutY="188.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Main Menu" AnchorPane.bottomAnchor="328.0" AnchorPane.topAnchor="190.0">
                            <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="TH_LIST" size="1.5em" />
+                              <FontAwesomeIcon glyphName="TH_LIST" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button layoutX="30.0" layoutY="238.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Resident" AnchorPane.topAnchor="240.0">
+                        <Button fx:id="resident_btn" layoutX="30.0" layoutY="238.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Resident" AnchorPane.topAnchor="240.0">
                            <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="USER" size="1.5em" />
+                              <FontAwesomeIcon glyphName="USER" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button layoutX="29.0" layoutY="290.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="HouseHold" AnchorPane.topAnchor="290.0">
+                        <Button fx:id="house_hold_btn" layoutX="29.0" layoutY="290.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="HouseHold" AnchorPane.topAnchor="290.0">
                            <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="USERS" size="1.5em" />
+                              <FontAwesomeIcon glyphName="USERS" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button layoutX="30.0" layoutY="340.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Fee" AnchorPane.topAnchor="340.0">
+                        <Button fx:id="fee_btn" layoutX="30.0" layoutY="340.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Fee" AnchorPane.topAnchor="340.0">
                            <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="MONEY" size="1.5em" />
+                              <FontAwesomeIcon glyphName="MONEY" size="1.5em" />
                            </graphic>
                         </Button>
                         <Label layoutX="20.0" layoutY="395.0" text="Statistical" textFill="WHITE" AnchorPane.leftAnchor="17.0">
@@ -91,19 +92,18 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button layoutX="29.0" layoutY="425.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Statistical">
+                        <Button fx:id="statistical_btn" layoutX="29.0" layoutY="425.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="41.0" prefWidth="170.0" styleClass="nav-btn-1" stylesheets="@../design/AdminDesign.css" text="Statistical">
                            <graphic>
-                              <FontAwesomeIcon fill="WHITE" glyphName="SIGNAL" size="1.5em" />
+                              <FontAwesomeIcon glyphName="SIGNAL" size="1.5em" />
                            </graphic>
                         </Button>
-                        <FontAwesomeIcon fill="#93b9d1" glyphName="BUILDING" layoutX="88.0" layoutY="529.0" size="5em" />
                      </children>
                   </AnchorPane>
                </left>
                <center>
                   <AnchorPane prefHeight="550.0" prefWidth="870.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane prefHeight="560.0" prefWidth="870.0">
+                        <AnchorPane fx:id="main_menu_form" prefHeight="560.0" prefWidth="870.0" visible="false">
                            <children>
                               <AnchorPane layoutX="30.0" layoutY="212.0" prefHeight="313.0" prefWidth="810.0" stylesheets="@../design/AdminDesign.css">
                                  <styleClass>
@@ -159,7 +159,7 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
-                                                <AnchorPane layoutX="305.0" layoutY="24.0" prefHeight="136.0" prefWidth="200.0" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="300.0">
+                                                <AnchorPane layoutX="241.0" layoutY="24.0" prefHeight="136.0" prefWidth="200.0" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="240.0">
                                                    <styleClass>
                                                       <String fx:value="bg-color-l" />
                                                       <String fx:value="radius" />
@@ -178,7 +178,7 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
-                                                <AnchorPane layoutX="574.0" layoutY="24.0" prefHeight="136.0" prefWidth="200.0" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="580.0">
+                                                <AnchorPane layoutX="718.0" layoutY="24.0" prefHeight="136.0" prefWidth="200.0" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="900.0">
                                                    <styleClass>
                                                       <String fx:value="bg-color-l" />
                                                       <String fx:value="radius" />
@@ -186,6 +186,44 @@
                                                    <children>
                                                       <FontAwesomeIcon fill="WHITE" glyphName="CAR" layoutX="21.0" layoutY="89.0" size="5em" AnchorPane.leftAnchor="21.0" />
                                                       <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="98.0" prefHeight="20.0" prefWidth="152.0" text="Total Vehicle" textFill="WHITE" AnchorPane.leftAnchor="21.0">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane layoutX="466.0" layoutY="24.0" prefHeight="136.0" prefWidth="200.0" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="460.0">
+                                                   <styleClass>
+                                                      <String fx:value="bg-color-l" />
+                                                      <String fx:value="radius" />
+                                                   </styleClass>
+                                                   <children>
+                                                      <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="21.0" layoutY="89.0" size="5em" />
+                                                      <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="98.0" prefHeight="20.0" prefWidth="152.0" text="Total HouseHold" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
+                                                         <font>
+                                                            <Font size="20.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane layoutX="678.0" layoutY="24.0" prefHeight="136.0" prefWidth="200.0" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="680.0">
+                                                   <styleClass>
+                                                      <String fx:value="bg-color-l" />
+                                                      <String fx:value="radius" />
+                                                   </styleClass>
+                                                   <children>
+                                                      <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="21.0" layoutY="89.0" size="5em" />
+                                                      <Label alignment="CENTER_RIGHT" layoutX="21.0" layoutY="98.0" prefHeight="20.0" prefWidth="152.0" text="Total HouseHold" textFill="WHITE">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -205,7 +243,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="48.0" layoutY="34.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="resident_form" layoutX="48.0" layoutY="34.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="22.0" layoutY="14.0" styleClass="header-l" stylesheets="@../design/AdminDesign.css" text="Resident" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0">
                                  <font>
@@ -232,7 +270,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="38.0" layoutY="22.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="house_hold_form" layoutX="38.0" layoutY="22.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="27.0" layoutY="27.0" styleClass="header-l" stylesheets="@../design/AdminDesign.css" text="HouseHold" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="14.0">
                                  <font>
@@ -255,6 +293,8 @@
                               </TableView>
                            </children>
                         </AnchorPane>
+                        <AnchorPane fx:id="fee_form" layoutX="121.0" layoutY="80.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane fx:id="statistical_form" layoutX="69.0" layoutY="80.0" prefHeight="560.0" prefWidth="870.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </center>
