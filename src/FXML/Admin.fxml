@@ -97,7 +97,7 @@
                               <FontAwesomeIcon glyphName="SIGNAL" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button layoutX="29.0" layoutY="500.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" styleClass="signout-btn" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="500.0">
+                        <Button fx:id="signout_btn" layoutX="29.0" layoutY="500.0" mnemonicParsing="false" onAction="#signout" prefHeight="26.0" prefWidth="30.0" styleClass="signout-btn" stylesheets="@../design/AdminDesign.css" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="500.0">
                            <graphic>
                               <FontAwesomeIcon glyphName="SIGN_OUT" size="1.5em" />
                            </graphic>

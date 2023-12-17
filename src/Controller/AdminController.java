@@ -58,6 +58,9 @@ public class AdminController implements Initializable{
     @FXML
     private Button statistical_btn;
     
+    @FXML
+    private Button signout_btn;
+    
     // Main menu form 
     
     @FXML
@@ -210,7 +213,40 @@ public class AdminController implements Initializable{
     // Sign out Button
     
     public void signout(){
+        signout_btn.getScene().getWindow().hide();
         
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/FXMLDocument.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            root.setOnMousePressed((MouseEvent event) ->{
+                
+                x = event.getSceneX();
+                y = event.getSceneY();
+                                
+            });
+            
+            root.setOnMouseDragged((MouseEvent event) ->{
+                
+                stage.setX(event.getScreenX() - x);
+                stage.setY(event.getScreenY() - y);
+                stage.setOpacity(0.8);
+                
+            });
+            
+            root.setOnMouseReleased((MouseEvent event) ->{
+                
+                stage.setOpacity(1);
+                
+            });
+            
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setScene(scene);
+            stage.show();
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
     
