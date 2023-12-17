@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,10 +14,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -62,15 +68,71 @@ public class AdminController implements Initializable{
     @FXML
     private AnchorPane resident_form;
     
+    @FXML
+    private Button resident_add_btn;
+    
+    @FXML
+    private Button resident_change_btn;
+
+    @FXML
+    private Button resident_delete_btn;
+    
     // House hold form
     
     @FXML
     private AnchorPane house_hold_form;
+    
+    @FXML
+    private Button house_hold_add_btn;
+    
+    @FXML
+    private Button house_hold_change_btn;
+
+    @FXML
+    private Button house_hold_delete_btn;
 
     // Fee form
     
     @FXML
     private AnchorPane fee_form;
+    
+    // Mandatory Fee Form
+    
+    @FXML
+    private AnchorPane mandatory_fee_form;
+    
+    @FXML
+    private Button mandatory_fee_btn;
+    
+    @FXML
+    private Button add_mandatory_fee_btn;
+    
+    // Voluntary Fee Form
+    
+    @FXML
+    private AnchorPane voluntary_fee_form;
+    
+    @FXML
+    private Button add_voluntary_fee_btn;
+    
+    @FXML
+    private Button voluntary_fee_btn;
+    
+    // Total Fee Form
+    
+    @FXML
+    private AnchorPane total_fee_form;
+
+    
+    
+    
+    
+    @FXML
+    private Button total_fee_btn;
+    
+    
+    
+    
     
     // Statistical form
 
@@ -118,6 +180,8 @@ public class AdminController implements Initializable{
         }
     }
     
+    // date_time
+    
     public void runTime() {
         new Thread() {
             public void run() {
@@ -143,6 +207,125 @@ public class AdminController implements Initializable{
         }.start();
     }
     
+    // Sign out Button
+    
+    public void signout(){
+        
+    }
+    
+    
+    // Resident Form
+    
+    private double x=0;
+    private double y=0;
+    
+    public void addResident() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/AddResident.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e)->{
+            x = e.getSceneX();
+            y = e.getSceneY();
+                        });
+
+        root.setOnMouseDragged((MouseEvent e)->{
+            stage.setX(e.getScreenX() - x);
+            stage.setY(e.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    // House Hold Form
+    
+    public void addHouseHold() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/AddHouseHold.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e)->{
+            x = e.getSceneX();
+            y = e.getSceneY();
+                        });
+
+        root.setOnMouseDragged((MouseEvent e)->{
+            stage.setX(e.getScreenX() - x);
+            stage.setY(e.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    // Fee Form
+    
+    // Switch Fee Form (Mandatory Fee, Voluntary Fee, Total Fee)
+    
+    public void switchFeeForm(ActionEvent e){
+        if(e.getSource() == mandatory_fee_btn){
+            mandatory_fee_form.setVisible(true);
+            voluntary_fee_form.setVisible(false);
+            total_fee_form.setVisible(false);
+        }
+        if(e.getSource() == voluntary_fee_btn){
+            mandatory_fee_form.setVisible(false);
+            voluntary_fee_form.setVisible(true);
+            total_fee_form.setVisible(false);
+        }
+        if(e.getSource() == total_fee_btn){
+            mandatory_fee_form.setVisible(false);
+            voluntary_fee_form.setVisible(false);
+            total_fee_form.setVisible(true);
+        }
+    }
+    
+    // Mandatory Form
+    
+    public void addMandatoryFee() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/AddMandatoryFee.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e)->{
+            x = e.getSceneX();
+            y = e.getSceneY();
+                        });
+
+        root.setOnMouseDragged((MouseEvent e)->{
+            stage.setX(e.getScreenX() - x);
+            stage.setY(e.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    // Voluntary Form
+    
+    public void addVoluntaryFee() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/AddVoluntaryFee.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        root.setOnMousePressed((MouseEvent e)->{
+            x = e.getSceneX();
+            y = e.getSceneY();
+                        });
+
+        root.setOnMouseDragged((MouseEvent e)->{
+            stage.setX(e.getScreenX() - x);
+            stage.setY(e.getScreenY() - y);
+        });
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+        stage.setScene(scene);
+        stage.show();
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
