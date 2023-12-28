@@ -17,7 +17,7 @@ public class Conn {
     public Statement s;
     public Conn(){
         try {
-            //c = DriverManager.getConnection();
+            c = DriverManager.getConnection("jdbc:mysql://localhost:3306/ebs", "root", "123456789");
             if(c != null){
                 System.out.println("Connected Successfully");
             }
@@ -27,7 +27,4 @@ public class Conn {
         }
     }
     
-    public static void main(String[] args){
-        System.out.println("Successful");
-    }
 }

@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FXMLDocumentController">
    <children>
       <AnchorPane layoutX="90.0" layoutY="123.0" prefHeight="600.0" prefWidth="400.0" styleClass="white-bg" stylesheets="@../design/LoginDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -22,20 +21,20 @@
                   <Font name="Calibri Bold" size="27.0" />
                </font>
             </Label>
-            <TextField layoutX="113.0" layoutY="225.0" prefHeight="25.0" prefWidth="170.0" promptText="Username" stylesheets="@../design/LoginDesign.css">
+            <TextField fx:id="login_username" layoutX="113.0" layoutY="225.0" prefHeight="25.0" prefWidth="170.0" promptText="Username" stylesheets="@../design/LoginDesign.css">
                <styleClass>
                   <String fx:value="textfield-l" />
                   <String fx:value="white-bg" />
                </styleClass>
             </TextField>
-            <PasswordField layoutX="114.0" layoutY="263.0" prefHeight="25.0" prefWidth="170.0" promptText="Password" stylesheets="@../design/LoginDesign.css">
+            <PasswordField fx:id="login_password" layoutX="114.0" layoutY="263.0" prefHeight="25.0" prefWidth="170.0" promptText="Password" stylesheets="@../design/LoginDesign.css" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="263.0">
                <styleClass>
                   <String fx:value="textfield-l" />
                   <String fx:value="white-bg" />
                </styleClass>
             </PasswordField>
-            <CheckBox layoutX="114.0" layoutY="300.0" mnemonicParsing="false" text="Show Password" />
-            <Button layoutX="114.0" layoutY="389.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="170.0" stylesheets="@../design/LoginDesign.css" text="Login">
+            <CheckBox fx:id="login_showPassword_checkBox" layoutX="114.0" layoutY="300.0" mnemonicParsing="false" onAction="#loginShowPassword" text="Show Password" />
+            <Button fx:id="login_btn" layoutX="114.0" layoutY="389.0" mnemonicParsing="false" onAction="#login" prefHeight="40.0" prefWidth="170.0" stylesheets="@../design/LoginDesign.css" text="Login">
                <styleClass>
                   <String fx:value="login-btn" />
                   <String fx:value="radius" />
@@ -43,6 +42,12 @@
             </Button>
             <ComboBox layoutX="114.0" layoutY="332.0" prefHeight="26.0" prefWidth="170.0" promptText="Select Role" />
             <FontAwesomeIcon fill="#2b6194" glyphName="BUILDING" layoutX="65.0" layoutY="426.0" size="4em" wrappingWidth="47.88562870025635" />
+            <TextField fx:id="login_showPassword" layoutX="176.0" layoutY="287.0" prefHeight="25.0" prefWidth="170.0" promptText="Password" stylesheets="@../design/LoginDesign.css" visible="false" AnchorPane.leftAnchor="114.0" AnchorPane.topAnchor="263.0">
+               <styleClass>
+                  <String fx:value="textfield-l" />
+                  <String fx:value="white-bg" />
+               </styleClass>
+            </TextField>
          </children>
       </AnchorPane>
    </children>
