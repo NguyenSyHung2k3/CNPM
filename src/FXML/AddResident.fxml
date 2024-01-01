@@ -6,8 +6,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -33,7 +31,7 @@
       <Label layoutX="64.0" layoutY="334.0" text="Resident Status:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="310.0" />
       <TextField fx:id="resident_id" layoutX="28.0" layoutY="80.0" prefHeight="26.0" prefWidth="174.0" promptText="Ex: 1234" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="80.0" />
       <TextField fx:id="resident_name" layoutX="46.0" layoutY="172.0" prefHeight="26.0" prefWidth="174.0" promptText="Ex: Nguyen Van A" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="130.0" />
-      <TextField fx:id="resident_phone" layoutX="32.0" layoutY="331.2" prefHeight="26.0" prefWidth="174.0" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="280.0" />
+      <TextField fx:id="resident_phone" layoutX="32.0" layoutY="331.2" prefHeight="26.0" prefWidth="174.0" promptText="Ex: 091234567" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="280.0" />
       <Button fx:id="resident_confirm_btn" layoutX="128.0" layoutY="438.0" mnemonicParsing="false" onAction="#addResident" prefHeight="37.0" prefWidth="193.0" stylesheets="@../design/Resident.css" text="Confirm">
          <styleClass>
             <String fx:value="nav-btn" />
@@ -41,11 +39,6 @@
          </styleClass>
       </Button>
       <FontAwesomeIcon fill="#5f1a71" glyphName="CLIPBOARD" layoutX="279.0" layoutY="166.0" size="9em" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="246.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/Lovepik_com-611743926-Cartoon%20Wind%20City%20Superior%20Architecture%20Apartment.png" />
-         </image>
-      </ImageView>
       <ComboBox fx:id="resident_gender" layoutX="32.0" layoutY="285.0" prefHeight="26.0" prefWidth="174.0" promptText="Select Gender" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.topAnchor="230.0" />
       <ComboBox fx:id="resident_status" layoutX="32.0" layoutY="378.0" prefHeight="26.0" prefWidth="174.0" promptText="Select Status" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.topAnchor="330.0" />
       <Button fx:id="close_btn" layoutX="410.4" layoutY="1.0" mnemonicParsing="false" onAction="#close" prefHeight="24.0" prefWidth="40.0" styleClass="close-btn" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="410.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -54,5 +47,18 @@
          </graphic>
       </Button>
       <TextField fx:id="resident_age" layoutX="40.0" layoutY="140.0" prefHeight="26.0" prefWidth="174.0" promptText="Ex: 18" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="180.0" />
+      <AnchorPane layoutX="239.0" layoutY="193.0" prefHeight="230.0" prefWidth="194.0" stylesheets="@../design/Resident.css">
+         <styleClass>
+            <String fx:value="shadow" />
+            <String fx:value="white-bg" />
+            <String fx:value="radius" />
+         </styleClass>
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="HouseHold ID:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="15.0" />
+            <Label layoutX="14.0" layoutY="62.0" text="Relation with Owner:" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="65.0" />
+            <TextField fx:id="household_id" layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="174.0" promptText="Ex: 123" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="35.0" />
+            <TextField fx:id="owner_relation" layoutX="14.0" layoutY="87.0" prefHeight="26.0" prefWidth="174.0" promptText="Ex: chủ nhà" styleClass="textfield" stylesheets="@../design/Resident.css" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="85.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

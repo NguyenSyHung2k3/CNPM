@@ -52,6 +52,12 @@ public class AddResidentController implements Initializable{
     @FXML
     private ComboBox<?> resident_status;
     
+    @FXML
+    private TextField household_id;
+
+    @FXML
+    private TextField owner_relation;
+    
     private AlertMessage alert = new AlertMessage();
     
     // close function
@@ -97,19 +103,27 @@ public class AddResidentController implements Initializable{
         String phone = resident_phone.getText();
         String status = (String)resident_status.getSelectionModel().getSelectedItem();
         
+        
         String addResident = "insert into resident values('"+id+"', "
                 + "'"+name+"', "
                 + "'"+age+"', "
                 + "'"+gender+"', "
                 + "'"+phone+"', "
                 + "'"+status+"')";
+        
+        String addRole = "insert into role_in_household values('"+household_id.getText()+"', '"+id+"', '"+owner_relation.getText()+"')";
+        String updateMember = "update household set num_of_members = "
+                + "(select count(*) from role_in_household where role_in_household.household_id = '"+household_id.getText()+"')";
+        
         try{
             if(resident_id.getText().isEmpty()||
                     resident_name.getText().isEmpty()||
                     resident_age.getText().isEmpty()||
                     resident_gender.getSelectionModel().isEmpty()||
                     resident_phone.getText().isEmpty()||
-                    resident_status.getSelectionModel().isEmpty()){
+                    resident_status.getSelectionModel().isEmpty()||
+                    household_id.getText().isEmpty()||
+                    owner_relation.getText().isEmpty()){
                 alert.errorMessage("Please fill out all the blank spaces");
                 
                 // Empty all the text
@@ -119,10 +133,13 @@ public class AddResidentController implements Initializable{
                 resident_gender.getSelectionModel().clearSelection();
                 resident_phone.setText("");
                 resident_status.getSelectionModel().clearSelection();
-                
+                household_id.setText("");
+                owner_relation.setText("");
             }
             else {
                 c.s.executeUpdate(addResident);
+                c.s.executeUpdate(addRole);
+                c.s.executeUpdate(updateMember);
                 alert.successMessage("Successfully Add Resident");
                 Stage stage;
                 stage = (Stage)add_resident_form.getScene().getWindow();

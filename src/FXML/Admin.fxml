@@ -159,7 +159,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
+                                                      <Label fx:id="total_citizen" layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
                                                          <font>
                                                             <Font size="20.0" />
                                                          </font>
@@ -178,7 +178,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
+                                                      <Label fx:id="total_household" layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
                                                          <font>
                                                             <Font size="20.0" />
                                                          </font>
@@ -216,7 +216,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
+                                                      <Label fx:id="total_staying_resident" layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
                                                          <font>
                                                             <Font size="20.0" />
                                                          </font>
@@ -235,7 +235,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
+                                                      <Label fx:id="total_absent_resident" layoutX="167.0" layoutY="22.0" text="0" textFill="WHITE">
                                                          <font>
                                                             <Font size="20.0" />
                                                          </font>
@@ -344,7 +344,27 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="resident_status" layoutX="375.0" layoutY="105.0">
+                                    <Label fx:id="resident_status" layoutX="375.0" layoutY="105.0" AnchorPane.leftAnchor="375.0">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="457.0" layoutY="15.0" text="Relation with owner:" AnchorPane.leftAnchor="480.0" AnchorPane.topAnchor="15.0">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="owner_relation" layoutX="633.0" layoutY="15.0" text="asdfasdf">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="480.0" layoutY="60.0" text="HouseHoldID:">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="resident_household_id" layoutX="633.0" layoutY="60.0" text="asdfasdf">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -356,7 +376,7 @@
                                     <FontAwesomeIcon glyphName="REFRESH" />
                                  </graphic>
                               </Button>
-                              <AnchorPane fx:id="resident_change_info_form" layoutX="304.0" layoutY="52.0" prefHeight="442.0" prefWidth="266.0" stylesheets="@../design/AdminDesign.css" visible="false">
+                              <AnchorPane fx:id="resident_change_info_form" layoutX="304.0" layoutY="52.0" prefHeight="474.0" prefWidth="266.0" stylesheets="@../design/AdminDesign.css" visible="false">
                                  <styleClass>
                                     <String fx:value="white-bg" />
                                     <String fx:value="radius" />
@@ -373,24 +393,30 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="14.0" layoutY="71.0" text="Resident ID:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="70.0" />
-                                    <Label layoutX="14.0" layoutY="120.0" text="Name:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="120.0" />
-                                    <Label layoutX="14.0" layoutY="167.0" text="Age:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="170.0" />
-                                    <Label layoutX="14.0" layoutY="221.0" text="Gender:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="220.0" />
-                                    <Label layoutX="14.0" layoutY="268.0" text="Phone:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="270.0" />
-                                    <Label layoutX="14.0" layoutY="309.0" text="Resident Status:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="320.0" />
-                                    <TextField fx:id="resident_id_change" layoutX="74.0" layoutY="66.0" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="66.0" />
-                                    <TextField fx:id="resident_name_change" layoutX="74.0" layoutY="116.0" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="116.0" />
-                                    <TextField fx:id="resident_age_change" layoutX="74.0" layoutY="166.0" AnchorPane.leftAnchor="102.0" />
-                                    <TextField fx:id="resident_phone_change" layoutX="74.0" layoutY="266.0" AnchorPane.leftAnchor="102.0" />
-                                    <Button fx:id="resident_update_btn" layoutX="101.0" layoutY="393.0" mnemonicParsing="false" text="Update" />
-                                    <ComboBox fx:id="resident_gender_change" layoutX="102.0" layoutY="216.0" prefWidth="150.0" promptText="Select Gender" />
-                                    <ComboBox fx:id="resident_status_change" layoutX="102.0" layoutY="316.0" prefWidth="150.0" promptText="Select Status" />
+                                    <Label layoutX="14.0" layoutY="48.0" text="Resident ID:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="48.0" />
+                                    <Label layoutX="14.0" layoutY="98.0" text="Name:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="98.0" />
+                                    <Label layoutX="14.0" layoutY="148.0" text="Age:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="148.0" />
+                                    <Label layoutX="14.0" layoutY="198.0" text="Gender:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="198.0" />
+                                    <Label layoutX="14.0" layoutY="248.0" text="Phone:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="248.0" />
+                                    <Label layoutX="14.0" layoutY="298.0" text="Resident Status:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="298.0" />
+                                    <TextField fx:id="resident_id_change" editable="false" layoutX="102.0" layoutY="44.0" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="44.0" />
+                                    <TextField fx:id="resident_name_change" layoutX="102.0" layoutY="94.0" AnchorPane.leftAnchor="102.0" AnchorPane.topAnchor="94.0" />
+                                    <TextField fx:id="resident_age_change" layoutX="102.0" layoutY="144.0" AnchorPane.leftAnchor="102.0" />
+                                    <TextField fx:id="resident_phone_change" layoutX="102.0" layoutY="244.0" AnchorPane.leftAnchor="102.0" />
+                                    <Button fx:id="resident_update_btn" layoutX="98.0" layoutY="440.0" mnemonicParsing="false" onAction="#updateResident" text="Update" />
+                                    <ComboBox fx:id="resident_gender_change" layoutX="101.0" layoutY="194.0" prefWidth="150.0" promptText="Select Gender" />
+                                    <ComboBox fx:id="resident_status_change" layoutX="101.0" layoutY="294.0" prefWidth="150.0" promptText="Select Status" />
+                                    <Label layoutX="14.0" layoutY="348.0" text="Household ID:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="348.0" />
+                                    <Label layoutX="14.0" layoutY="398.0" text="Role in household:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="398.0" />
+                                    <TextField fx:id="resident_household_id_change" layoutX="103.0" layoutY="344.0" />
+                                    <TextField fx:id="resident_role_change" layoutX="120.0" layoutY="395.0" prefHeight="26.0" prefWidth="134.0" />
                                  </children>
                               </AnchorPane>
+                              <ComboBox layoutX="437.0" layoutY="14.0" prefHeight="26.0" prefWidth="49.0" />
+                              <TextField fx:id="resident_search_bar" layoutX="149.0" layoutY="14.0" onAction="#searchResident" prefHeight="26.0" prefWidth="277.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="house_hold_form" layoutX="38.0" layoutY="22.0" prefHeight="560.0" prefWidth="870.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="house_hold_form" layoutX="38.0" layoutY="22.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="27.0" layoutY="27.0" styleClass="header-l" stylesheets="@../design/AdminDesign.css" text="HouseHold" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="14.0">
                                  <font>
@@ -404,29 +430,68 @@
                                     <String fx:value="radius" />
                                  </styleClass>
                                  <children>
-                                    <Label layoutX="14.0" layoutY="14.0" text="Label" />
-                                    <Label layoutX="14.0" layoutY="60.0" text="Label" />
-                                    <Label layoutX="14.0" layoutY="100.0" text="Label" />
-                                    <Label layoutX="230.0" layoutY="14.0" text="Label" />
-                                    <Label layoutX="230.0" layoutY="60.0" text="Label" />
-                                    <Label layoutX="230.0" layoutY="100.0" text="Label" />
+                                    <Label layoutX="14.0" layoutY="14.0" text="Household ID:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="20.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
+                                    <Label layoutX="14.0" layoutY="60.0" text="Owner Name:" AnchorPane.leftAnchor="15.2" AnchorPane.topAnchor="70.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
+                                    <Label layoutX="14.0" layoutY="100.0" text="Owner Phone:" AnchorPane.leftAnchor="15.2" AnchorPane.topAnchor="120.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
+                                    <Label layoutX="230.0" layoutY="14.0" text="Number Of Member:" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
+                                    <Label layoutX="230.0" layoutY="60.0" text="Address:" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="70.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font></Label>
+                                    <Label fx:id="household_id" layoutX="135.0" layoutY="21.0" text="Label">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="household_owner_name" layoutX="135.0" layoutY="71.0" text="Label">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="household_phone" layoutX="135.0" layoutY="121.0" text="Label">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="household_num" layoutX="472.0" layoutY="21.0" text="Label">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="household_address" layoutX="472.0" layoutY="71.0" text="Label">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
-                              <TableView layoutX="24.0" layoutY="48.0" prefHeight="270.0" prefWidth="826.0" stylesheets="@../design/AdminDesign.css">
+                              <TableView fx:id="household_table" layoutX="24.0" layoutY="48.0" onMouseClicked="#selectHouseHold" prefHeight="270.0" prefWidth="826.0" stylesheets="@../design/AdminDesign.css">
                                 <columns>
-                                  <TableColumn prefWidth="121.59999656677246" text="HouseHoldD" />
-                                    <TableColumn prefWidth="255.99996948242188" text="OwnerName" />
-                                    <TableColumn prefWidth="176.80001831054688" text="Phone" />
-                                    <TableColumn prefWidth="77.59991455078125" text="Number Of Mem" />
-                                    <TableColumn prefWidth="194.4000244140625" text="Address" />
+                                  <TableColumn fx:id="household_id_col" prefWidth="121.59999656677246" text="HouseHoldID" />
+                                    <TableColumn fx:id="household_owner_name_col" prefWidth="255.99996948242188" text="OwnerName" />
+                                    <TableColumn fx:id="household_phone_col" prefWidth="176.80001831054688" text="Phone" />
+                                    <TableColumn fx:id="household_num_col" prefWidth="77.59991455078125" text="Number Of Mem" />
+                                    <TableColumn fx:id="household_address_col" prefWidth="194.4000244140625" text="Address" />
                                 </columns>
                               </TableView>
-                              <Button fx:id="house_hold_delete_btn" layoutX="783.0" layoutY="16.0" mnemonicParsing="false" text="Delete">
+                              <Button fx:id="house_hold_delete_btn" layoutX="783.0" layoutY="16.0" mnemonicParsing="false" onAction="#deleteHouseHold" text="Delete">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="TRASH" />
                                  </graphic>
                               </Button>
-                              <Button fx:id="house_hold_change_btn" layoutX="698.0" layoutY="16.0" mnemonicParsing="false" text="Change">
+                              <Button fx:id="house_hold_change_btn" layoutX="698.0" layoutY="16.0" mnemonicParsing="false" onAction="#changeHouseHold" text="Change">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="PENCIL" />
                                  </graphic>
@@ -436,21 +501,59 @@
                                     <FontAwesomeIcon glyphName="PLUS" />
                                  </graphic>
                               </Button>
-                              <Button layoutX="600.0" layoutY="16.0" mnemonicParsing="false">
+                              <Button layoutX="600.0" layoutY="16.0" mnemonicParsing="false" onAction="#showHouseHoldData">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="REFRESH" />
                                  </graphic>
                               </Button>
-                              <TextField layoutX="168.0" layoutY="15.0" prefHeight="26.0" prefWidth="230.0" />
-                              <Button layoutX="505.0" layoutY="16.0" mnemonicParsing="false" text="SEARCH">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="SEARCH" />
-                                 </graphic>
-                              </Button>
-                              <ComboBox layoutX="408.0" layoutY="16.0" prefHeight="26.0" prefWidth="89.0" />
+                              <TextField layoutX="168.0" layoutY="15.0" prefHeight="26.0" prefWidth="267.0" />
+                              <ComboBox layoutX="446.0" layoutY="15.0" prefHeight="26.0" prefWidth="89.0" />
+                              <AnchorPane fx:id="household_change_info_form" layoutX="286.0" layoutY="65.0" prefHeight="395.0" prefWidth="262.0" stylesheets="@../design/AdminDesign.css" visible="false">
+                                 <styleClass>
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="radius" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                                 <children>
+                                    <Button layoutX="234.0" layoutY="2.0" mnemonicParsing="false" onAction="#closeChangeHouseHoldForm" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <FontAwesomeIcon glyphName="CLOSE" />
+                                       </graphic>
+                                    </Button>
+                                    <Label layoutX="29.0" layoutY="59.0" text="House Hold ID:" AnchorPane.topAnchor="50.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="29.0" layoutY="106.0" text="Owner Name:" AnchorPane.topAnchor="105.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="26.0" layoutY="235.0" text="Owner Phone Number:" AnchorPane.topAnchor="215.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="29.0" layoutY="203.0" text="Address:" AnchorPane.topAnchor="160.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="household_id_change" layoutX="29.0" layoutY="77.0" prefHeight="26.0" prefWidth="180.0" styleClass="textfield" stylesheets="@../design/HouseHold.css" AnchorPane.topAnchor="75.0" />
+                                    <TextField fx:id="household_owner_name_change" layoutX="27.0" layoutY="152.0" prefHeight="26.0" prefWidth="180.0" styleClass="textfield" stylesheets="@../design/HouseHold.css" AnchorPane.topAnchor="130.0" />
+                                    <TextField fx:id="household_phone_change" layoutX="27.0" layoutY="358.0" prefHeight="26.0" prefWidth="180.0" styleClass="textfield" stylesheets="@../design/HouseHold.css" AnchorPane.topAnchor="240.0" />
+                                    <TextField fx:id="household_address_change" layoutX="27.0" layoutY="294.0" prefHeight="26.0" prefWidth="180.0" styleClass="textfield" stylesheets="@../design/HouseHold.css" AnchorPane.topAnchor="185.0" />
+                                    <Button layoutX="103.0" layoutY="332.0" mnemonicParsing="false" onAction="#updateHouseHold" text="Update" />
+                                    <Label layoutX="13.0" layoutY="16.0" styleClass="footer-l" stylesheets="@../design/AdminDesign.css" text="Household Info" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font></Label>
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="fee_form" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.7999999999999545" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.8000000000000682" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="fee_form" prefHeight="560.0" prefWidth="870.4" AnchorPane.bottomAnchor="0.7999999999999545" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.8000000000000682" AnchorPane.topAnchor="0.0">
                            <children>
                               <Label layoutX="35.0" layoutY="24.0" styleClass="header-l" stylesheets="@../design/AdminDesign.css" text="Fee" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0">
                                  <font>
@@ -598,7 +701,7 @@
                                     </AnchorPane>
                                     <AnchorPane fx:id="total_fee_form" layoutX="10.0" layoutY="10.0" prefHeight="490.4" prefWidth="825.6" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <AnchorPane layoutX="25.0" layoutY="22.0" prefHeight="446.0" prefWidth="790.0" stylesheets="@../design/AdminDesign.css">
+                                          <AnchorPane layoutX="25.0" prefHeight="468.0" prefWidth="790.0" stylesheets="@../design/AdminDesign.css">
                                              <styleClass>
                                                 <String fx:value="white-bg" />
                                                 <String fx:value="shadow" />
@@ -610,15 +713,110 @@
                                                       <Font size="20.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView layoutX="66.0" layoutY="64.0" prefHeight="360.0" prefWidth="662.0">
+                                                <TableView fx:id="fee_table" layoutX="26.0" layoutY="56.0" onMouseClicked="#selectFee" prefHeight="246.0" prefWidth="741.0">
                                                   <columns>
-                                                    <TableColumn prefWidth="110.4000015258789" text="Fee ID" />
-                                                    <TableColumn prefWidth="108.0" text="Room ID:" />
-                                                      <TableColumn prefWidth="126.4000244140625" text="Amount" />
-                                                      <TableColumn prefWidth="141.60000610351562" text="Status" />
-                                                      <TableColumn prefWidth="180.79998779296875" text="Paid Time" />
+                                                    <TableColumn fx:id="fee_id_col" prefWidth="110.4000015258789" text="Fee ID" />
+                                                    <TableColumn fx:id="fee_name_col" prefWidth="166.4000244140625" text="Fee Name" />
+                                                      <TableColumn fx:id="fee_amount_col" prefWidth="156.0" text="Amount" />
+                                                      <TableColumn fx:id="fee_type_col" prefWidth="96.79995727539062" text="Fee Type" />
+                                                      <TableColumn fx:id="fee_time_col" prefWidth="211.19989013671875" text="Time" />
                                                   </columns>
                                                 </TableView>
+                                                <Button layoutX="703.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteFee" text="Delete">
+                                                   <graphic>
+                                                      <FontAwesomeIcon glyphName="TRASH" />
+                                                   </graphic>
+                                                </Button>
+                                                <Button layoutX="621.0" layoutY="14.0" mnemonicParsing="false" onAction="#changeFee" text="Change">
+                                                   <graphic>
+                                                      <FontAwesomeIcon glyphName="PENCIL" />
+                                                   </graphic>
+                                                </Button>
+                                                <Button layoutX="562.0" layoutY="14.0" mnemonicParsing="false" onAction="#addFee" text="Add">
+                                                   <graphic>
+                                                      <FontAwesomeIcon glyphName="PLUS" />
+                                                   </graphic>
+                                                </Button>
+                                                <Button layoutX="528.0" layoutY="15.0" mnemonicParsing="false" onAction="#showFeeData">
+                                                   <graphic>
+                                                      <FontAwesomeIcon glyphName="REFRESH" />
+                                                   </graphic>
+                                                </Button>
+                                                <Label layoutX="35.0" layoutY="318.0" text="Fee ID:" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="330.0">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="64.0" layoutY="381.0" text="Fee Name:" AnchorPane.leftAnchor="35.2" AnchorPane.topAnchor="390.0">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="245.0" layoutY="332.0" text="Amount:" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="330.0">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="241.0" layoutY="390.0" text="Fee Type:" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="390.0">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="431.0" layoutY="332.0" text="Time:" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="330.0">
+                                                   <font>
+                                                      <Font size="19.0" />
+                                                   </font>
+                                                </Label>
+                                                <AnchorPane fx:id="fee_change_info_form" layoutX="320.0" layoutY="55.0" prefHeight="378.0" prefWidth="222.0" stylesheets="@../design/AdminDesign.css">
+                                                   <styleClass>
+                                                      <String fx:value="white-bg" />
+                                                      <String fx:value="shadow" />
+                                                      <String fx:value="radius" />
+                                                   </styleClass>
+                                                   <children>
+                                                      <Button layoutX="171.0" layoutY="2.0" mnemonicParsing="false" onAction="#closeChangeFeeForm" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <graphic>
+                                                            <FontAwesomeIcon glyphName="CLOSE" />
+                                                         </graphic>
+                                                      </Button>
+                                                      <Label layoutX="14.0" layoutY="59.0" text="Fee ID:" />
+                                                      <Label layoutX="14.0" layoutY="105.0" text="Fee Name:" />
+                                                      <Label layoutX="14.0" layoutY="159.0" text="Amount:" />
+                                                      <Label layoutX="14.0" layoutY="212.0" text="Fee Type:" />
+                                                      <Label layoutX="14.0" layoutY="259.0" text="Time:" />
+                                                      <Label layoutX="14.0" layoutY="6.0" styleClass="footer-l" stylesheets="@../design/AdminDesign.css" text="Fee Info" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="6.0">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button layoutX="83.0" layoutY="319.0" mnemonicParsing="false" text="Update" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <Label fx:id="fee_id" layoutX="136.0" layoutY="331.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="fee_name" layoutX="136.0" layoutY="391.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="fee_amount" layoutX="369.0" layoutY="331.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="fee_type" layoutX="369.0" layoutY="391.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="fee_time" layoutX="554.0" layoutY="331.0">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                        </children>
@@ -627,7 +825,117 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="statistical_form" layoutX="69.0" layoutY="80.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane fx:id="statistical_form" layoutX="69.0" layoutY="80.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="31.0" layoutY="55.0" prefHeight="468.0" prefWidth="807.0" stylesheets="@../design/AdminDesign.css">
+                                 <styleClass>
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="shadow" />
+                                    <String fx:value="radius" />
+                                 </styleClass>
+                                 <children>
+                                    <TableView fx:id="payment_table" layoutX="57.0" layoutY="39.0" onMouseClicked="#selectFeePayment" prefHeight="409.0" prefWidth="687.0">
+                                      <columns>
+                                        <TableColumn fx:id="payment_fee_id_col" prefWidth="170.40003204345703" text="Fee ID" />
+                                        <TableColumn fx:id="payment_owner_id_col" prefWidth="192.79998779296875" text="Owner ID" />
+                                          <TableColumn fx:id="payment_status_col" prefWidth="126.39993286132812" text="Status" />
+                                          <TableColumn fx:id="payment_date_col" prefWidth="195.9998779296875" text="Pay Date" />
+                                      </columns>
+                                    </TableView>
+                                    <Button layoutX="756.0" layoutY="1.0" mnemonicParsing="false" onAction="#billForm" prefHeight="26.0" prefWidth="50.0" text="Info" AnchorPane.rightAnchor="0.8000000000000682" AnchorPane.topAnchor="1.0">
+                                       <graphic>
+                                          <FontAwesomeIcon glyphName="INFO" />
+                                       </graphic>
+                                    </Button>
+                                    <AnchorPane fx:id="bill_form" layoutX="447.0" layoutY="34.0" prefHeight="351.0" prefWidth="223.0" stylesheets="@../design/AdminDesign.css">
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                          <String fx:value="radius" />
+                                       </styleClass>
+                                       <children>
+                                          <Button layoutX="171.0" layoutY="2.0" mnemonicParsing="false" onAction="#closeBillForm" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <graphic>
+                                                <FontAwesomeIcon glyphName="CLOSE" />
+                                             </graphic>
+                                          </Button>
+                                          <Label layoutX="14.0" layoutY="105.0" text="Owner ID:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="14.0" layoutY="165.0" text="Status:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="125.0">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="14.0" layoutY="228.0" text="Date:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="165.0">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="14.0" layoutY="272.0" text="Total Cost:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="205.0">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label layoutX="18.0" layoutY="47.0" text="Fee ID:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="45.0">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Button layoutX="28.0" layoutY="281.0" mnemonicParsing="false" text="Pay the bill" />
+                                          <Label layoutX="4.0" layoutY="6.0" stylesheets="@../design/AdminDesign.css" text="BILL" AnchorPane.leftAnchor="6.0" AnchorPane.topAnchor="6.0">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="header-l" />
+                                                <String fx:value="header-l" />
+                                                <String fx:value="footer-l" />
+                                             </styleClass>
+                                          </Label>
+                                          <Button layoutX="130.0" layoutY="281.0" mnemonicParsing="false" text="Print" />
+                                          <Label fx:id="bill_fee_id" layoutX="115.0" layoutY="45.0" text="Label">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="bill_owner_id" layoutX="115.0" layoutY="85.0" text="Label">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="bill_status" layoutX="115.0" layoutY="125.0" text="Label">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="bill_date" layoutX="115.0" layoutY="165.0" text="Label">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="bill_cost" layoutX="115.0" layoutY="205.0" text="Label">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                    <Button layoutX="692.0" layoutY="2.0" mnemonicParsing="false" onAction="#showFeePaymentData" AnchorPane.topAnchor="0.0">
+                                       <graphic>
+                                          <FontAwesomeIcon glyphName="REFRESH" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="17.0" layoutY="20.0" styleClass="header-l" stylesheets="@../design/AdminDesign.css" text="Statistical" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="14.0">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
                      </children>
                   </AnchorPane>
                </center>

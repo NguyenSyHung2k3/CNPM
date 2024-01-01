@@ -10,13 +10,17 @@ package Model;
  */
 public class Household {
     private String ID;
+    private String ownerName;
+    private String phone;
     private String address;
     private int numOfMem;
 
-    public Household(String ID, String address, int numOfMem) {
+    public Household(String ID, String address, int numOfMem, String ownerName, String phone ) {
         this.ID = ID;
         this.address = address;
         this.numOfMem = numOfMem;
+        this.ownerName = ownerName;
+        this.phone = phone;
     }
 
     public String getID() {
@@ -41,6 +45,22 @@ public class Household {
 
     public void setNumOfMem(int numOfMem) {
         this.numOfMem = numOfMem;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
     
 }
