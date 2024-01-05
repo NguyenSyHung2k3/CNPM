@@ -49,7 +49,7 @@ public class AddFeeController implements Initializable{
     }
     
     // fee type
-    private String[] types = {"Mandatory", "Voluntary", "Vehicle"};
+    private String[] types = {"Mandatory", "Voluntary", "Vehicle", "Service Bill"};
     
     public void comboFee(){
         List<String> listFee = new ArrayList<>();
@@ -228,7 +228,20 @@ public class AddFeeController implements Initializable{
                 
                 
             }
-         
+         else if(type == "Service Bill"){
+                
+                try{
+                    c1.s.executeUpdate(addFee);
+                    alert.successMessage("Successfully Add Fee");
+                    Stage stage;
+                    stage = (Stage)add_fee_form.getScene().getWindow();
+                    stage.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                
+                
+            }
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

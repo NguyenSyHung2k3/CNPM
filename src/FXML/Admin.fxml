@@ -587,9 +587,9 @@
                                     <Font size="19.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="mandatory_fee_btn" layoutX="83.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="MandatoryFee:" />
-                              <Button fx:id="voluntary_fee_btn" layoutX="195.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="Voluntary Fee:" />
-                              <Button fx:id="total_fee_btn" layoutX="302.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="Fee:" />
+                              <Button fx:id="mandatory_fee_btn" layoutX="83.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="MandatoryFee:" visible="false" />
+                              <Button fx:id="voluntary_fee_btn" layoutX="195.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="Voluntary Fee:" visible="false" />
+                              <Button fx:id="total_fee_btn" layoutX="93.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="Fee:" />
                               <AnchorPane layoutX="23.0" layoutY="55.2" prefHeight="500.0" prefWidth="858.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="55.0">
                                  <children>
                                     <AnchorPane fx:id="mandatory_fee_form" layoutX="170.0" layoutY="74.0" prefHeight="490.4" prefWidth="825.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -953,7 +953,7 @@
                                     </AnchorPane>
                                  </children>
                               </AnchorPane>
-                              <Button fx:id="car_register_btn" layoutX="353.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="Car Register:" />
+                              <Button fx:id="car_register_btn" layoutX="153.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchFeeForm" text="Car Register:" />
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="statistical_form" layoutX="69.0" layoutY="80.0" prefHeight="560.0" prefWidth="870.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -1753,7 +1753,7 @@ public class AdminController implements Initializable{
     public void payBill(){
         Conn c = new Conn();
         
-        String query = "update fee_payment set status = '"+"done"+"' where fee_id = '"+bill_fee_id.getText()+"' and id_owner = '"+bill_owner_id.getText()+"'";
+        String query = "update fee_payment set status = '"+"paid"+"' where fee_id = '"+bill_fee_id.getText()+"' and id_owner = '"+bill_owner_id.getText()+"'";
         String query1 = "update fee_payment set pay_date = current_date where fee_id = '"+bill_fee_id.getText()+"' and id_owner = '"+bill_owner_id.getText()+"'";
         try{
             c.s.executeUpdate(query);
