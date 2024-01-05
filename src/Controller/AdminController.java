@@ -579,6 +579,12 @@ public class AdminController implements Initializable{
         }.start();
     }
     
+    // Close System
+    
+    public void close(){
+        System.exit(0);
+    }
+    
     // Sign out Button
     
     public void signout(){
@@ -1461,29 +1467,42 @@ public class AdminController implements Initializable{
     public void addCar(){
         Conn c = new Conn();
         
-        String query = "insert into car values('"+car_household_id.getText()+"',"
+        String query1 = "select * from role_in_household where household_id = '"+car_household_id.getText()+"' "
+                + "and member_id = '"+car_owner_id.getText()+"'";
+        
+        try{
+            ResultSet rs = c.s.executeQuery(query1);
+            if(rs.next()){
+                String query = "insert into car values('"+car_household_id.getText()+"',"
                 + " '"+car_owner_id.getText()+"',"
                 + " '"+car_company.getText()+"',"
                 + " '"+car_number.getText()+"',"
                 + " '"+car_type.getSelectionModel().getSelectedItem()+"')";
         
-        try{
-            if(car_household_id.getText().isEmpty()||
-                    car_company.getText().isEmpty()||
-                    car_number.getText().isEmpty()||
-                    car_owner_id.getText().isEmpty()||
-                    car_type.getSelectionModel().isEmpty()){
-                alert.errorMessage("Please Fill all the blanks");
+                try{
+                    if(car_household_id.getText().isEmpty()||
+                            car_company.getText().isEmpty()||
+                            car_number.getText().isEmpty()||
+                            car_owner_id.getText().isEmpty()||
+                            car_type.getSelectionModel().isEmpty()){
+                        alert.errorMessage("Please Fill all the blanks");
+                    } else {
+                        c.s.executeUpdate(query);
+                        alert.confirmationMessage("Successfully add car");
+                    }
+
+                }catch(Exception e){
+
+                }
+
+                showCarData();
             } else {
-                c.s.executeUpdate(query);
-                alert.confirmationMessage("Successfully add car");
+                alert.errorMessage("This household/resident doesn't exist!");
             }
-            
         }catch(Exception e){
-            
+            e.printStackTrace();
         }
         
-        showCarData();
         
     }
     
