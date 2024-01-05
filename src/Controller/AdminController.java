@@ -5,6 +5,7 @@
 package Controller;
 
 import Connection.Conn;
+import Model.Car;
 import Model.Fee;
 import Model.FeePayment;
 import Model.Household;
@@ -97,6 +98,9 @@ public class AdminController implements Initializable{
     
     @FXML
     private Label total_staying_resident;
+    
+    @FXML
+    private Label total_vehicle;
     
     // Resident form
     
@@ -200,6 +204,9 @@ public class AdminController implements Initializable{
     @FXML
     private Label resident_household_id;
     
+    @FXML
+    private ComboBox<?> resident_search_combo;
+    
     
     // House hold form
     
@@ -246,6 +253,9 @@ public class AdminController implements Initializable{
     private Label household_owner_name;
     
     @FXML
+    private Label household_area;
+    
+    @FXML
     private Label household_phone;
     
     @FXML
@@ -262,6 +272,18 @@ public class AdminController implements Initializable{
     
     @FXML
     private TextField household_address_change;
+    
+    @FXML
+    private TextField household_area_change;
+    
+    @FXML
+    private TableColumn<Household, Double> household_area_col;
+    
+    @FXML
+    private TextField household_search_bar;
+    
+    @FXML
+    private ComboBox<?> household_search_combo;
     
     // Fee form
     
@@ -288,6 +310,21 @@ public class AdminController implements Initializable{
     
     @FXML
     private AnchorPane fee_change_info_form;
+
+    @FXML
+    private TextField fee_name_change;
+    
+    @FXML
+    private TextField fee_id_change;
+    
+    @FXML
+    private TextField fee_type_change;
+    
+    @FXML
+    private TextField fee_amount_change;
+    
+    @FXML
+    private TextField fee_time_change;
     
     @FXML
     private Label fee_amount;
@@ -304,7 +341,11 @@ public class AdminController implements Initializable{
     @FXML
     private Label fee_type;
     
+    @FXML
+    private TextField fee_search_bar;
     
+    @FXML
+    private ComboBox<?> fee_search_combo;
     
     // Mandatory Fee Form
     
@@ -342,6 +383,67 @@ public class AdminController implements Initializable{
     
     
     
+    // Car Register form
+    
+    @FXML
+    private Button car_register_btn;
+    
+    @FXML
+    private AnchorPane car_register_form;
+    
+    @FXML
+    private Button car_add_btn;
+
+    @FXML
+    private Button car_change_btn;
+
+    @FXML
+    private Button car_clear_btn;
+
+    @FXML
+    private TextField car_company;
+
+    @FXML
+    private TableColumn<Car, String> car_company_col;
+
+    @FXML
+    private Button car_delete_btn;
+
+    @FXML
+    private TextField car_household_id;
+
+    @FXML
+    private TableColumn<Car, String> car_household_id_col;
+
+    @FXML
+    private TextField car_number;
+
+    @FXML
+    private TableColumn<Car, String> car_number_col;
+
+    @FXML
+    private TextField car_owner_id;
+
+    @FXML
+    private TableColumn<Car, String> car_owner_id_col;
+
+    @FXML
+    private Button car_refresh_btn;
+
+    @FXML
+    private TextField car_search_bar;
+
+    @FXML
+    private ComboBox<?> car_search_combo;
+
+    @FXML
+    private TableView<Car> car_table;
+
+    @FXML
+    private ComboBox<?> car_type;
+
+    @FXML
+    private TableColumn<Car, String> car_type_col;
     
     
     // Statistical form
@@ -365,6 +467,12 @@ public class AdminController implements Initializable{
     private TableColumn<FeePayment, String> payment_status_col;
     
     @FXML
+    private TableColumn<FeePayment, Double> payment_price_col;
+    
+    @FXML
+    private TableColumn<FeePayment, String> payment_fee_name_col;
+    
+    @FXML
     private AnchorPane bill_form;
     
     @FXML
@@ -382,9 +490,27 @@ public class AdminController implements Initializable{
     @FXML
     private Label bill_date;
     
+    @FXML
+    private ComboBox<?> payment_search_combo;
+    
+    @FXML
+    private TextField payment_search_bar;
+    
     //Alert
     
     private AlertMessage alert = new AlertMessage();
+    
+    // Constraint
+    
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        // Remove non-digit characters from the phone number
+        String digitsOnly = phoneNumber.replaceAll("\\D", "");
+
+        // Check if the resulting string has exactly 10 digits
+        return digitsOnly.length() == 10;
+    }
+    
+    
     
     // Switch form 
     
@@ -492,6 +618,83 @@ public class AdminController implements Initializable{
         }
     }
     
+    // Main Menu Function
+    
+    public void showTotalCitizen(){
+        
+        Conn c = new Conn();
+        String query = "select count(*) from resident";
+        try{
+            ResultSet rs = c.s.executeQuery(query);
+            while(rs.next()){
+                total_citizen.setText(rs.getString("count(*)"));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        
+    }
+    
+    public void showTotalHousehold(){
+        Conn c = new Conn();
+        String query = "select count(*) from household";
+        try{
+            ResultSet rs = c.s.executeQuery(query);
+            while(rs.next()){
+                total_household.setText(rs.getString("count(*)"));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void showTotalStayingResident(){
+        Conn c = new Conn();
+        String query = "select count(*) from resident where status = '"+"Stay"+"'";
+        try{
+            ResultSet rs = c.s.executeQuery(query);
+            while(rs.next()){
+                total_staying_resident.setText(rs.getString("count(*)"));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void showTotalAbsentResident(){
+        Conn c = new Conn();
+        String query = "select count(*) from resident where status = '"+"Absent"+"'";
+        try{
+            ResultSet rs = c.s.executeQuery(query);
+            while(rs.next()){
+                total_absent_resident.setText(rs.getString("count(*)"));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void showTotalCar(){
+        Conn c = new Conn();
+        String query = "select count(*) from car";
+        try{
+            ResultSet rs = c.s.executeQuery(query);
+            while(rs.next()){
+                total_vehicle.setText(rs.getString("count(*)"));
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void refresh(){
+        showTotalCitizen();
+        showTotalHousehold();
+        showTotalAbsentResident();
+        showTotalStayingResident();
+        showTotalCar();
+    }
+    
     
     // Resident Function
     
@@ -538,7 +741,7 @@ public class AdminController implements Initializable{
         return listResidentData;
     }
     
-    ObservableList<Resident> listResidentData = FXCollections.observableArrayList();
+    private ObservableList<Resident> listResidentData;
     
     public void showResidentData(){
         listResidentData = residentData();
@@ -560,6 +763,17 @@ public class AdminController implements Initializable{
         }
         ObservableList listData = FXCollections.observableArrayList(listGender);
         resident_gender_change.setItems(listData);
+    }
+    
+    private String[] searchResidents = {"ID", "Gender", "Status", "Name"};
+    
+    public void comboResidentSearch(){
+        List<String> listSearch = new ArrayList<>();
+        for(String search : searchResidents){
+            listSearch.add(search);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listSearch);
+        resident_search_combo.setItems(listData);
     }
     
     // status
@@ -611,7 +825,6 @@ public class AdminController implements Initializable{
         resident_phone_change.setText(resident.getPhone_number());
         resident_status_change.getSelectionModel().getSelectedItem();
         
-        
         showResidentData();
     }
     
@@ -625,6 +838,7 @@ public class AdminController implements Initializable{
     }
     
     public void deleteResident(){
+        String delete = "delete from role_in_household where member_id = '"+resident_id.getText()+"'";
         String query = "delete from resident where ID = '"+resident_id.getText()+"'";
         Conn c = new Conn();
         try{
@@ -636,6 +850,7 @@ public class AdminController implements Initializable{
             Optional<ButtonType> buttonType = alert.showAndWait();
             
             if(buttonType.get() == ButtonType.OK){
+                c.s.execute(delete);
                 c.s.executeUpdate(query);
             } else {
                 return;
@@ -672,27 +887,48 @@ public class AdminController implements Initializable{
     
     public void searchResident(){
         
-        FilteredList<Resident> filteredData = new FilteredList<>(listResidentData, b -> true);
-        resident_search_bar.textProperty().addListener(((observable, oldValue, newValue) -> {
+        FilteredList<Resident> filteredData = new FilteredList<>(listResidentData, e -> true);
+        resident_search_bar.textProperty().addListener((Observable, oldValue, newValue) -> {
             
             filteredData.setPredicate(Resident -> {
             
-                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                if(newValue.isEmpty() || newValue == null){
                     return true;
                 }
                 
                 String searchKeyword = newValue.toLowerCase();
                 
                 // search id
-                
-                if(Resident.getID().toLowerCase().indexOf(searchKeyword) > -1){
-                    return true;
+                if(resident_search_combo.getSelectionModel().getSelectedItem() == "ID"){
+                    if(Resident.getID().toString().indexOf(searchKeyword) > -1){
+                        return true;
+                    } 
+                    else return false;
                 }
-                
+                if(resident_search_combo.getSelectionModel().getSelectedItem() == "Name"){
+                    if(Resident.getName().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    } 
+                    else return false;
+                }
+                if(resident_search_combo.getSelectionModel().getSelectedItem() == "Gender"){
+                    if(Resident.getGender().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    } 
+                    else return false;
+                }
+                if(resident_search_combo.getSelectionModel().getSelectedItem() == "Status"){
+                    if(Resident.getStatus().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    } 
+                    else return false;
+                }
+
                 else return false;
+
             });
             
-        }));
+        });
         
         SortedList<Resident> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(resident_table.comparatorProperty());
@@ -723,6 +959,17 @@ public class AdminController implements Initializable{
         stage.show();
     }
     
+    private String[] searchHouseholds = {"IDHouse", "Address", "Owner"};
+    
+    public void comboHouseholdSearch(){
+        List<String> listSearch = new ArrayList<>();
+        for(String search : searchHouseholds){
+            listSearch.add(search);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listSearch);
+        household_search_combo.setItems(listData);
+    }
+    
     public ObservableList<Household> houseHoldData(){
         ObservableList<Household> listData = FXCollections.observableArrayList();
         String query = "select * from household";
@@ -735,7 +982,8 @@ public class AdminController implements Initializable{
                         rs.getString("household_address"),
                         rs.getInt("num_of_members"),
                         rs.getString("household_owner"), 
-                        rs.getString("phone"));
+                        rs.getString("phone"),
+                        rs.getDouble("area"));
                 listData.add(household);
             }
         } catch(Exception e){
@@ -744,14 +992,17 @@ public class AdminController implements Initializable{
         return listData;
     }
     
+    private ObservableList<Household> listHouseHoldData = FXCollections.observableArrayList();
+    
     public void showHouseHoldData(){
-        ObservableList<Household> listData = houseHoldData();
+        listHouseHoldData = houseHoldData();
         household_id_col.setCellValueFactory(new PropertyValueFactory<>("ID"));
         household_owner_name_col.setCellValueFactory(new PropertyValueFactory<>("ownerName"));
         household_phone_col.setCellValueFactory(new PropertyValueFactory<>("phone"));
         household_address_col.setCellValueFactory(new PropertyValueFactory<>("address"));
         household_num_col.setCellValueFactory(new PropertyValueFactory<>("numOfMem"));
-        household_table.setItems(listData);
+        household_area_col.setCellValueFactory(new PropertyValueFactory<>("area"));
+        household_table.setItems(listHouseHoldData);
     }
     
     public void selectHouseHold(){
@@ -766,11 +1017,13 @@ public class AdminController implements Initializable{
         household_address.setText(household.getAddress());
         household_phone.setText(household.getPhone());
         household_num.setText(String.valueOf(household.getNumOfMem()));
+        household_area.setText(String.valueOf(household.getArea()));
         
         household_id_change.setText(household.getID());
         household_address_change.setText(household.getAddress());
         household_owner_name_change.setText(household.getOwnerName());
         household_phone_change.setText(household.getPhone());
+        household_area_change.setText(String.valueOf(household.getArea()));
         
         showHouseHoldData();
     }
@@ -785,7 +1038,12 @@ public class AdminController implements Initializable{
     }
     
     public void deleteHouseHold(){
+        
+        String query1 = "select member_id from role_in_household where household_id = '"+household_id.getText()+"'";
+        
         String query = "delete from household where household_id = '"+household_id.getText()+"'";
+        
+        
         Conn c = new Conn();
         try{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -796,7 +1054,20 @@ public class AdminController implements Initializable{
             Optional<ButtonType> buttonType = alert.showAndWait();
             
             if(buttonType.get() == ButtonType.OK){
-                c.s.executeUpdate(query);
+                
+                try(ResultSet rs = c.s.executeQuery(query1)){
+                    while(rs.next()){
+                    
+                        String id = rs.getString("member_id");
+                        String deleteResident = "delete from resident where ID = '"+id+"'"; 
+                        String deleteRole = "delete from role_in_household where member_id = '"+id+"'";
+                        c.s.execute(deleteRole);
+                        c.s.execute(deleteResident);
+                    }
+                    
+                    c.s.executeUpdate(query);
+                }
+                
             } else {
                 return;
             }
@@ -811,7 +1082,8 @@ public class AdminController implements Initializable{
         String query = "update household set "
                 + "household_address = '"+household_address_change.getText()+"', "
                 + "household_owner = '"+household_owner_name_change.getText()+"', "
-                + "phone = '"+household_phone_change.getText()+"' "
+                + "phone = '"+household_phone_change.getText()+"',"
+                + "area = '"+household_area_change.getText()+"' "
                 + "where household_id = '"+household_id_change.getText()+"'";
         try{
             c.s.executeUpdate(query);
@@ -823,37 +1095,50 @@ public class AdminController implements Initializable{
         }
     }
     
-    public void searchHouseHold(){
-//        FilteredList<Household> filteredData = new FilteredList<>(listHouseHoldData, b -> true);
-//        resident_search_bar.textProperty().addListener(((observable, oldValue, newValue) -> {
-//            
-//            filteredData.setPredicate(Resident -> {
-//            
-//                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
-//                    return true;
-//                }
-//                
-//                String searchKeyword = newValue.toLowerCase();
-//                
-//                // search id
-//                
-//                if(Resident.getID().toLowerCase().indexOf(searchKeyword) > -1){
-//                    return true;
-//                }
-//                
-//                else return false;
-//            });
-//            
-//        }));
-//        
-//        SortedList<Resident> sortedData = new SortedList<>(filteredData);
-//        sortedData.comparatorProperty().bind(resident_table.comparatorProperty());
-//        resident_table.setItems(sortedData);
+    public void searchHousehold(){
+        FilteredList<Household> filteredData = new FilteredList<>(listHouseHoldData, b -> true);
+        household_search_bar.textProperty().addListener(((observable, oldValue, newValue) -> {
+            
+            filteredData.setPredicate(predicateHouseHold -> {
+            
+                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                    return true;
+                }
+                
+                String searchKeyword = newValue.toLowerCase();
+                
+                // search id
+                if(household_search_combo.getSelectionModel().getSelectedItem() == "IDHouse"){
+                    if(predicateHouseHold.getID().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(household_search_combo.getSelectionModel().getSelectedItem() == "Address"){
+                    if(predicateHouseHold.getAddress().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(household_search_combo.getSelectionModel().getSelectedItem() == "Owner"){
+                    if(predicateHouseHold.getOwnerName().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                else return false;
+            });
+            
+        }));
+        
+        SortedList<Household> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(household_table.comparatorProperty());
+        household_table.setItems(sortedData);
     }
-    
 
-    
-    
     // Fee Function
     
     public void addFee() throws IOException{
@@ -874,6 +1159,17 @@ public class AdminController implements Initializable{
 
         stage.setScene(scene);
         stage.show();
+    }
+    
+    private String[] searchFees = {"IDFee", "Type", "Fee Name", "Time"};
+    
+    public void comboFeeSearch(){
+        List<String> listSearch = new ArrayList<>();
+        for(String search : searchFees){
+            listSearch.add(search);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listSearch);
+        fee_search_combo.setItems(listData);
     }
     
     public ObservableList<Fee> feeData(){
@@ -897,14 +1193,16 @@ public class AdminController implements Initializable{
         return listData;
     }
     
+    private ObservableList<Fee> listFeeData = FXCollections.observableArrayList();
+    
     public void showFeeData(){
-        ObservableList<Fee> listData = feeData();
+        listFeeData = feeData();
         fee_id_col.setCellValueFactory(new PropertyValueFactory<>("ID"));
         fee_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
         fee_amount_col.setCellValueFactory(new PropertyValueFactory<>("amount"));
         fee_type_col.setCellValueFactory(new PropertyValueFactory<>("type"));
         fee_time_col.setCellValueFactory(new PropertyValueFactory<>("date"));
-        fee_table.setItems(listData);
+        fee_table.setItems(listFeeData);
     }
     
     public void selectFee(){
@@ -919,7 +1217,13 @@ public class AdminController implements Initializable{
         fee_name.setText(fee.getName());
         fee_type.setText(fee.getType());
         fee_time.setText(fee.getDate());
-
+        
+        fee_id_change.setText(fee.getID());
+        fee_name_change.setText(fee.getName());
+        fee_type_change.setText(fee.getType());
+        fee_time_change.setText(fee.getDate());
+        fee_amount_change.setText(String.valueOf(fee.getAmount()));
+        
         showFeeData();
     }
     
@@ -934,6 +1238,7 @@ public class AdminController implements Initializable{
     
     public void deleteFee(){
         String query = "delete from fee where fee_id = '"+fee_id.getText()+"'";
+        String delete = "delete from fee_payment  where fee_id = '"+fee_id.getText()+"'";
         Conn c = new Conn();
         try{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -944,6 +1249,7 @@ public class AdminController implements Initializable{
             Optional<ButtonType> buttonType = alert.showAndWait();
             
             if(buttonType.get() == ButtonType.OK){
+                c.s.executeUpdate(delete);
                 c.s.executeUpdate(query);
             } else {
                 return;
@@ -956,22 +1262,70 @@ public class AdminController implements Initializable{
     
     public void updateFee(){
         Conn c = new Conn();
-        String query = "update household set "
-                + "household_address = '"+household_address_change.getText()+"', "
-                + "household_owner = '"+household_owner_name_change.getText()+"', "
-                + "phone = '"+household_phone_change.getText()+"' "
-                + "where household_id = '"+household_id_change.getText()+"'";
+        String query = "update fee set "
+                + "fee_name = '"+fee_name_change.getText()+"', "
+                + "amount = '"+fee_amount_change.getText()+"' "
+                + "where fee_id = '"+fee_id_change.getText()+"'";
         try{
             c.s.executeUpdate(query);
             alert.successMessage("Successfully Update");
-            showHouseHoldData();
-            household_change_info_form.setVisible(false);
+            showFeeData();
+            fee_change_info_form.setVisible(false);
         }catch(Exception e){
             e.printStackTrace();
         }
     }
     
-    
+    public void searchFee(){
+        FilteredList<Fee> filteredData = new FilteredList<>(listFeeData, b -> true);
+        fee_search_bar.textProperty().addListener(((observable, oldValue, newValue) -> {
+            
+            filteredData.setPredicate(feePredicate -> {
+            
+                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                    return true;
+                }
+                
+                String searchKeyword = newValue.toLowerCase();
+                
+                // search id
+                if(fee_search_combo.getSelectionModel().getSelectedItem() == "IDFee"){
+                    if(feePredicate.getID().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(fee_search_combo.getSelectionModel().getSelectedItem() == "Type"){
+                    if(feePredicate.getType().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(fee_search_combo.getSelectionModel().getSelectedItem() == "Fee Name"){
+                    if(feePredicate.getName().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(fee_search_combo.getSelectionModel().getSelectedItem() == "Time"){
+                    if(feePredicate.getDate().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                else return false;
+            });
+            
+        }));
+        
+        SortedList<Fee> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(fee_table.comparatorProperty());
+        fee_table.setItems(sortedData);
+    }
     
     
     // Switch Fee Form (Mandatory Fee, Voluntary Fee, Total Fee)
@@ -981,16 +1335,25 @@ public class AdminController implements Initializable{
             mandatory_fee_form.setVisible(true);
             voluntary_fee_form.setVisible(false);
             total_fee_form.setVisible(false);
+            car_register_form.setVisible(false);
         }
         if(e.getSource() == voluntary_fee_btn){
             mandatory_fee_form.setVisible(false);
             voluntary_fee_form.setVisible(true);
             total_fee_form.setVisible(false);
+            car_register_form.setVisible(false);
         }
         if(e.getSource() == total_fee_btn){
             mandatory_fee_form.setVisible(false);
             voluntary_fee_form.setVisible(false);
             total_fee_form.setVisible(true);
+            car_register_form.setVisible(false);
+        }
+        if(e.getSource() == car_register_btn){
+            mandatory_fee_form.setVisible(false);
+            voluntary_fee_form.setVisible(false);
+            total_fee_form.setVisible(false);
+            car_register_form.setVisible(true);
         }
     }
     
@@ -1038,7 +1401,229 @@ public class AdminController implements Initializable{
         stage.show();
     }
     
+    // Car
+    
+    private String[] searchCars = {"IDHouse", "IDOwner", "Car Type", "Car Company", "Car Number"};
+    
+    public void comboCarSearch(){
+        List<String> listSearch = new ArrayList<>();
+        for(String search : searchCars){
+            listSearch.add(search);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listSearch);
+        car_search_combo.setItems(listData);
+    }
+    
+    private String[] cars = {"Bike", "Motor", "Car", "Other"};
+    
+    public void comboCar(){
+        List<String> listSearch = new ArrayList<>();
+        for(String car : cars){
+            listSearch.add(car);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listSearch);
+        car_type.setItems(listData);
+    }
+    
+    public ObservableList<Car> carData(){
+        ObservableList<Car> listData = FXCollections.observableArrayList();
+        String query = "select * from car";
+        Conn c = new Conn();
+        Car car;
+        try{
+            ResultSet rs = c.s.executeQuery(query);
+            while(rs.next()){
+                car = new Car(rs.getString("household_id"), 
+                        rs.getString("owner_id"),
+                        rs.getString("car_comp"),
+                        rs.getString("car_num"), 
+                        rs.getString("car_type"));
+                listData.add(car);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return listData;
+    }
+    
+    private ObservableList<Car> listCarData = FXCollections.observableArrayList();
+    
+    public void showCarData(){
+        listCarData = carData();
+        car_household_id_col.setCellValueFactory(new PropertyValueFactory<>("householdID"));
+        car_owner_id_col.setCellValueFactory(new PropertyValueFactory<>("ownerID"));
+        car_company_col.setCellValueFactory(new PropertyValueFactory<>("company"));
+        car_number_col.setCellValueFactory(new PropertyValueFactory<>("number"));
+        car_type_col.setCellValueFactory(new PropertyValueFactory<>("type"));
+        car_table.setItems(listCarData);
+    }
+    
+    public void addCar(){
+        Conn c = new Conn();
+        
+        String query = "insert into car values('"+car_household_id.getText()+"',"
+                + " '"+car_owner_id.getText()+"',"
+                + " '"+car_company.getText()+"',"
+                + " '"+car_number.getText()+"',"
+                + " '"+car_type.getSelectionModel().getSelectedItem()+"')";
+        
+        try{
+            if(car_household_id.getText().isEmpty()||
+                    car_company.getText().isEmpty()||
+                    car_number.getText().isEmpty()||
+                    car_owner_id.getText().isEmpty()||
+                    car_type.getSelectionModel().isEmpty()){
+                alert.errorMessage("Please Fill all the blanks");
+            } else {
+                c.s.executeUpdate(query);
+                alert.confirmationMessage("Successfully add car");
+            }
+            
+        }catch(Exception e){
+            
+        }
+        
+        showCarData();
+        
+    }
+    
+    public void selectCar(){
+        Car car = car_table.getSelectionModel().getSelectedItem();
+        int num = car_table.getSelectionModel().getSelectedIndex();
+        
+        if((num-1) < -1)
+            return;
+        
+        car_household_id.setText(car.getHouseholdID());
+        car_owner_id.setText(car.getOwnerID());
+        car_company.setText(car.getCompany());
+        car_number.setText(car.getNumber());
+        car_type.getSelectionModel().getSelectedItem();
+        
+        showCarData();
+    }
+    
+    public void deleteCar(){
+        String query = "delete from car where household_id = '"+car_household_id.getText()+"' "
+                + "and owner_id = '"+car_owner_id.getText()+"' "
+                + "and car_comp = '"+car_company.getText()+"' "
+                + "and car_num = '"+car_number.getText()+"' "
+                + "and car_type = '"+car_type.getSelectionModel().getSelectedItem()+"'";
+        Conn c = new Conn();
+        try{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure that you want to delete it?");
+            
+            Optional<ButtonType> buttonType = alert.showAndWait();
+            
+            if(buttonType.get() == ButtonType.OK){
+                c.s.executeUpdate(query);
+            } else {
+                return;
+            }
+            showCarData();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void clearCar(){
+        car_household_id.setText("");
+        car_owner_id.setText("");
+        car_company.setText("");
+        car_number.setText("");
+        car_type.getSelectionModel().clearSelection();
+    }
+    
+    public void updateCar(){
+        Conn c = new Conn();
+        String query = "update car set "
+                + "car_comp = '"+car_company.getText()+"', "
+                + "car_type = '"+car_type.getSelectionModel().getSelectedItem()+"',"
+                + "car_num = '"+car_number.getText()+"' "
+                + "where household_id = '"+car_household_id.getText()+"' "
+                + "and owner_id = '"+car_owner_id.getText()+"' ";
+        try{
+            c.s.executeUpdate(query);
+            alert.successMessage("Successfully Update");
+            showCarData();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void searchCar(){
+        FilteredList<Car> filteredData = new FilteredList<>(listCarData, b -> true);
+        car_search_bar.textProperty().addListener(((observable, oldValue, newValue) -> {
+            
+            filteredData.setPredicate(carPredicate -> {
+            
+                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                    return true;
+                }
+                
+                String searchKeyword = newValue.toLowerCase();
+                
+                // search id
+                if(car_search_combo.getSelectionModel().getSelectedItem() == "IDHouse"){
+                    if(carPredicate.getHouseholdID().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(car_search_combo.getSelectionModel().getSelectedItem() == "IDOwner"){
+                    if(carPredicate.getOwnerID().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(car_search_combo.getSelectionModel().getSelectedItem() == "Car Company"){
+                    if(carPredicate.getCompany().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(car_search_combo.getSelectionModel().getSelectedItem() == "Car Type"){
+                    if(carPredicate.getType().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(car_search_combo.getSelectionModel().getSelectedItem() == "Car Number"){
+                    if(carPredicate.getNumber().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                else return false;
+            });
+            
+        }));
+        
+        SortedList<Car> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(car_table.comparatorProperty());
+        car_table.setItems(sortedData);
+    }
+    
     // Statistic 
+    
+    private String[] payments = {"Fee ID", "Household ID", "Status", "Pay Date", "Price", "Fee Name"};
+    
+    public void comboPaymentSearch(){
+        List<String> listSearch = new ArrayList<>();
+        for(String payment : payments){
+            listSearch.add(payment);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listSearch);
+        payment_search_combo.setItems(listData);
+    }
     
     public ObservableList<FeePayment> feePaymentData(){
         ObservableList<FeePayment> listData = FXCollections.observableArrayList();
@@ -1051,7 +1636,9 @@ public class AdminController implements Initializable{
                 payment = new FeePayment(rs.getInt("fee_id"), 
                         rs.getInt("id_owner"),
                         rs.getString("status"),
-                        rs.getString("pay_date"));
+                       rs.getString("pay_date"),
+                         rs.getDouble("price"),
+                       rs.getString("fee_name"));
                 listData.add(payment);
             }
         } catch(Exception e){
@@ -1060,13 +1647,17 @@ public class AdminController implements Initializable{
         return listData;
     }
     
+    private ObservableList<FeePayment> listPaymentData;
+    
     public void showFeePaymentData(){
-        ObservableList<FeePayment> listData = feePaymentData();
+        listPaymentData = feePaymentData();
         payment_fee_id_col.setCellValueFactory(new PropertyValueFactory<>("ID"));
         payment_owner_id_col.setCellValueFactory(new PropertyValueFactory<>("ownerID"));
         payment_date_col.setCellValueFactory(new PropertyValueFactory<>("date"));
         payment_status_col.setCellValueFactory(new PropertyValueFactory<>("status"));
-        payment_table.setItems(listData);
+        payment_price_col.setCellValueFactory(new PropertyValueFactory<>("price"));
+        payment_fee_name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
+        payment_table.setItems(listPaymentData);
     }
     
     public void billForm(){
@@ -1089,34 +1680,115 @@ public class AdminController implements Initializable{
         bill_owner_id.setText(String.valueOf(payment.getOwnerID()));
         bill_status.setText(payment.getStatus());
         bill_date.setText(payment.getDate());
+        bill_cost.setText(String.valueOf(payment.getPrice()));
         
-        Conn c = new Conn();
-        String query = "select amount from fee where fee_id = '"+bill_fee_id.getText()+"'";
-        try{
-            ResultSet rs = c.s.executeQuery(query);
-            while(rs.next()){
-                bill_cost.setText(String.valueOf(rs.getDouble("amount")));
-            }
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-
         showFeePaymentData();
     }
     
+    public void searchFeePayment(){
+        FilteredList<FeePayment> filteredData = new FilteredList<>(listPaymentData, b -> true);
+        payment_search_bar.textProperty().addListener(((observable, oldValue, newValue) -> {
+            
+            filteredData.setPredicate(paymentPredicate -> {
+            
+                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
+                    return true;
+                }
+                
+                String searchKeyword = newValue.toLowerCase();
+                
+                // search id
+                if(payment_search_combo.getSelectionModel().getSelectedItem() == "Fee ID"){
+                    if(String.valueOf(paymentPredicate.getID()).toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(payment_search_combo.getSelectionModel().getSelectedItem() == "Household ID"){
+                    if(String.valueOf(paymentPredicate.getOwnerID()).toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(payment_search_combo.getSelectionModel().getSelectedItem() == "Date"){
+                    if(paymentPredicate.getDate().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(payment_search_combo.getSelectionModel().getSelectedItem() == "Status"){
+                    if(paymentPredicate.getStatus().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(payment_search_combo.getSelectionModel().getSelectedItem() == "Price"){
+                    if(String.valueOf(paymentPredicate.getPrice()).toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                if(payment_search_combo.getSelectionModel().getSelectedItem() == "Fee Name"){
+                    if(paymentPredicate.getName().toString().toLowerCase().indexOf(searchKeyword) > -1){
+                        return true;
+                    }
+                    else return false;
+                }
+                
+                else return false;
+            });
+            
+        }));
+        
+        SortedList<FeePayment> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(payment_table.comparatorProperty());
+        payment_table.setItems(sortedData);
+    }
+    
+    public void payBill(){
+        Conn c = new Conn();
+        
+        String query = "update fee_payment set status = '"+"done"+"' where fee_id = '"+bill_fee_id.getText()+"' and id_owner = '"+bill_owner_id.getText()+"'";
+        String query1 = "update fee_payment set pay_date = current_date where fee_id = '"+bill_fee_id.getText()+"' and id_owner = '"+bill_owner_id.getText()+"'";
+        try{
+            c.s.executeUpdate(query);
+            c.s.executeUpdate(query1);
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        showFeePaymentData();
+        bill_form.setVisible(false);
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         runTime();
         
+        showTotalCitizen();
+        showTotalHousehold();
+        showTotalAbsentResident();
+        showTotalStayingResident();
+        showTotalCar();
+        
         showResidentData();
         showHouseHoldData();
         showFeeData();
         showFeePaymentData();
+        showCarData();
         
         comboGender();
         comboStatus();
-        
+        comboResidentSearch();
+        comboHouseholdSearch();
+        comboFeeSearch();
+        comboCarSearch();
+        comboCar();
+        comboPaymentSearch();
     }
     
 }

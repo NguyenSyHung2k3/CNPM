@@ -18,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import java.sql.*;
 
 /**
  *
@@ -59,6 +60,16 @@ public class AddResidentController implements Initializable{
     private TextField owner_relation;
     
     private AlertMessage alert = new AlertMessage();
+    
+    // Constraint
+    
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        // Remove non-digit characters from the phone number
+        String digitsOnly = phoneNumber.replaceAll("\\D", "");
+
+        // Check if the resulting string has exactly 10 digits
+        return digitsOnly.length() == 10;
+    }
     
     // close function
     
@@ -112,8 +123,10 @@ public class AddResidentController implements Initializable{
                 + "'"+status+"')";
         
         String addRole = "insert into role_in_household values('"+household_id.getText()+"', '"+id+"', '"+owner_relation.getText()+"')";
-        String updateMember = "update household set num_of_members = "
-                + "(select count(*) from role_in_household where role_in_household.household_id = '"+household_id.getText()+"')";
+        String updateMember = "update household set num_of_members = (select count(*) from role_in_household where role_in_household.household_id = '"+household_id.getText()+"') "
+                + "where household.household_id = '"+household_id.getText()+"'";
+        
+        
         
         try{
             if(resident_id.getText().isEmpty()||
@@ -136,7 +149,19 @@ public class AddResidentController implements Initializable{
                 household_id.setText("");
                 owner_relation.setText("");
             }
+            else if(!isValidPhoneNumber(resident_phone.getText())){
+                alert.errorMessage("Wrong phone number");
+                resident_id.setText("");
+                resident_name.setText("");
+                resident_age.setText("");
+                resident_gender.getSelectionModel().clearSelection();
+                resident_phone.setText("");
+                resident_status.getSelectionModel().clearSelection();
+                household_id.setText("");
+                owner_relation.setText("");
+            }
             else {
+                
                 c.s.executeUpdate(addResident);
                 c.s.executeUpdate(addRole);
                 c.s.executeUpdate(updateMember);
@@ -146,7 +171,18 @@ public class AddResidentController implements Initializable{
                 stage.close();
             }
         } catch(Exception e){
+            
+            alert.errorMessage("Already have this id");
+            resident_id.setText("");
+            resident_name.setText("");
+            resident_age.setText("");
+            resident_gender.getSelectionModel().clearSelection();
+            resident_phone.setText("");
+            resident_status.getSelectionModel().clearSelection();
+            household_id.setText("");
+            owner_relation.setText("");
             e.printStackTrace();
+            
         }
     }
     

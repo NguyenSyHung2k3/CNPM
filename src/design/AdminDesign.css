@@ -95,3 +95,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-family: Arial;
     -fx-text-fill: #fff;
 }
+
+.search{
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #2d658c, #2ca772);
+    -fx-border-width: .8px;
+    -fx-border-radius: 8px;
+    -fx-font-size: 12px;
+    -fx-padding: 0px 0px 0px 20px;
+}
+
+.search:focused{
+    -fx-border-width: 1.3px;
+}

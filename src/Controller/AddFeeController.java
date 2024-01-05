@@ -49,7 +49,7 @@ public class AddFeeController implements Initializable{
     }
     
     // fee type
-    private String[] types = {"Mandatory", "Voluntary"};
+    private String[] types = {"Mandatory", "Voluntary", "Vehicle"};
     
     public void comboFee(){
         List<String> listFee = new ArrayList<>();
@@ -60,13 +60,16 @@ public class AddFeeController implements Initializable{
         fee_type.setItems(listData);
     }
     
+    
+    
     public void addFee(){
         Conn c = new Conn();
         Conn c1 = new Conn();
+        Conn c2 = new Conn();
         
         String id = fee_id.getText();
         String name = fee_name.getText();
-        String amount = fee_amount.getText();
+        Double amount = Double.parseDouble(fee_amount.getText());
         String type = (String)fee_type.getSelectionModel().getSelectedItem();
         
         String addFee = "insert into fee values('"+id+"', "
@@ -74,8 +77,10 @@ public class AddFeeController implements Initializable{
                 + "'"+amount+"', "
                 + "'"+type+"', "
                 + "current_date());";
-
-            if(fee_id.getText().isEmpty()||
+        
+        String query = "select household_id, area from household where num_of_members >= 1;";
+        
+        if(fee_id.getText().isEmpty()||
                     fee_name.getText().isEmpty()||
                     fee_amount.getText().isEmpty()){
                 alert.errorMessage("Please fill out all the blank spaces");
@@ -96,19 +101,123 @@ public class AddFeeController implements Initializable{
                     e.printStackTrace();
                 }
                 
-                String query = "select household_id from household where num_of_members >= 1";
+                Integer household_id;
+                
                 try{
                     try(ResultSet rs = c.s.executeQuery(query)){
                     
                         while(rs.next()){
 
+                            household_id = rs.getInt("household_id");
+                            Double area = rs.getDouble("area");
+                            
+                            try{
+                                String query1 = "insert into fee_payment values('"+fee_id.getText()+"', "
+                                        + "'"+household_id+"', "
+                                        + "current_date(), "
+                                        + "'"+"not done"+"', "
+                                        + "'"+area*amount+"', "
+                                        + "'"+fee_name.getText()+"');";
+                                c1.s.executeUpdate(query1);
+                            }catch(Exception e){
+
+                            }
+                        } 
+                        
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+                
+            } else if(type == "Voluntary"){
+                
+                try{
+                    c1.s.executeUpdate(addFee);
+                    alert.successMessage("Successfully Add Fee");
+                    Stage stage;
+                    stage = (Stage)add_fee_form.getScene().getWindow();
+                    stage.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                
+                try{
+                    try(ResultSet rs = c.s.executeQuery(query)){
+                        
+                        while(rs.next()){
+
                             Integer household_id = rs.getInt("household_id");
                             
                             try{
-                                String query1 = "insert into fee_payment values('"+fee_id.getText()+"', '"+household_id+"', current_date(), '"+"not done"+"')";
-                                c.s.executeUpdate(query1);
+                                String query1 = "insert into fee_payment values('"+fee_id.getText()+"', "
+                                        + "'"+household_id+"', "
+                                        + "current_date(), "
+                                        + "'"+"not done"+"', "
+                                        + "'"+amount+"', "
+                                        + "'"+fee_name.getText()+"')";
+                                c1.s.executeUpdate(query1);
                             }catch(Exception e){
                                 e.printStackTrace();
+                            }
+                           
+                        } 
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                
+                
+            } else if(type == "Vehicle"){
+                
+                try{
+                    c1.s.executeUpdate(addFee);
+                    alert.successMessage("Successfully Add Fee");
+                    Stage stage;
+                    stage = (Stage)add_fee_form.getScene().getWindow();
+                    stage.close();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                
+                
+                try{
+                    try(ResultSet rs = c.s.executeQuery(query)){
+                        
+                        while(rs.next()){
+
+                            Integer household_id = rs.getInt("household_id");
+                            
+                            String car = "select * from car where household_id = '"+household_id+"'";
+                            
+                            try{
+                                ResultSet rs1 = c2.s.executeQuery(car);
+                                Double sum = 0.0;
+                                while(rs1.next()){
+                                    String veh_type = rs1.getString("car_type");
+                                    if(veh_type.equals("Car")){
+                                        sum += 1200000.0;
+                                    } else if (veh_type.equals("Motor")){
+                                        sum += 70000.0;
+                                    } else if (veh_type.equals("Bike")){
+                                        sum += 12000.0;
+                                    }
+                                }
+                                
+                                try{
+                                    String query1 = "insert into fee_payment values('"+fee_id.getText()+"', "
+                                        + "'"+household_id+"', "
+                                        + "current_date(), "
+                                        + "'"+"not done"+"', "
+                                        + "'"+sum+"', "
+                                        + "'"+fee_name.getText()+"')";
+                                    c1.s.executeUpdate(query1);
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                                
+                            }catch(Exception e){
+                                
                             }
 
                         } 
@@ -117,18 +226,10 @@ public class AddFeeController implements Initializable{
                     e.printStackTrace();
                 }
                 
-
-                
-            } else if(type == "Voluntary"){
-                
-                
-                
                 
             }
-
+         
     }
-    
-    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comboFee();

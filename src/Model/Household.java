@@ -14,13 +14,15 @@ public class Household {
     private String phone;
     private String address;
     private int numOfMem;
+    private Double area;
 
-    public Household(String ID, String address, int numOfMem, String ownerName, String phone ) {
+    public Household(String ID, String address, int numOfMem, String ownerName, String phone, Double area) {
         this.ID = ID;
         this.address = address;
         this.numOfMem = numOfMem;
         this.ownerName = ownerName;
         this.phone = phone;
+        this.area = area;
     }
 
     public String getID() {
@@ -61,6 +63,14 @@ public class Household {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Double getArea() {
+        return area;
+    }
+
+    public void setArea(Double area) {
+        this.area = area;
     }
     
 }
