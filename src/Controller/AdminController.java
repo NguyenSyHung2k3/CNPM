@@ -846,6 +846,7 @@ public class AdminController implements Initializable{
     public void deleteResident(){
         String delete = "delete from role_in_household where member_id = '"+resident_id.getText()+"'";
         String query = "delete from resident where ID = '"+resident_id.getText()+"'";
+        String query1 = "delete from car where owner_id = '"+resident_id.getText()+"'";
         Conn c = new Conn();
         try{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -857,6 +858,7 @@ public class AdminController implements Initializable{
             
             if(buttonType.get() == ButtonType.OK){
                 c.s.execute(delete);
+                c.s.execute(query1);
                 c.s.executeUpdate(query);
             } else {
                 return;
@@ -1046,9 +1048,8 @@ public class AdminController implements Initializable{
     public void deleteHouseHold(){
         
         String query1 = "select member_id from role_in_household where household_id = '"+household_id.getText()+"'";
-        
         String query = "delete from household where household_id = '"+household_id.getText()+"'";
-        
+        String deletePayment = "delete from fee_payment where id_owner = '"+household_id.getText()+"'";
         
         Conn c = new Conn();
         try{
@@ -1067,10 +1068,14 @@ public class AdminController implements Initializable{
                         String id = rs.getString("member_id");
                         String deleteResident = "delete from resident where ID = '"+id+"'"; 
                         String deleteRole = "delete from role_in_household where member_id = '"+id+"'";
+                        String deleteCar = "delete from car where owner_id = '"+id+"'";
+                        
                         c.s.execute(deleteRole);
+                        c.s.execute(deleteCar);
                         c.s.execute(deleteResident);
                     }
                     
+                    c.s.execute(deletePayment);
                     c.s.executeUpdate(query);
                 }
                 
